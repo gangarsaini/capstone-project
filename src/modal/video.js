@@ -17,20 +17,25 @@ const videoSchema = new mongoose.Schema({
   channelName: String,
   views: {
     type: Number,
-    default: 5000
+    default: 0
+  },
+  channel: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Channel"
   },
   likes: {
     type: Number,
-    default: 23
+    default:0
   },
   dislikes: {
     type: Number,
-    default:2
+    default:0
   },
   category: {
     type: String,
     default: "All"
-  }
+  },
+ 
 }, { timestamps: true });
 
 export default mongoose.model("Video", videoSchema);

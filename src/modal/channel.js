@@ -20,11 +20,8 @@ const channelSchema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: "Video"
     }
-  ],
-  channel: {
-  type: mongoose.Schema.Types.ObjectId,
-  ref: "Channel"
-}
+  ]
+
 }, { timestamps: true });
 
 export default mongoose.model("Channel", channelSchema);

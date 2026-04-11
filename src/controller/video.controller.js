@@ -1,14 +1,17 @@
 import Video from "../modal/video.js";
+import Channel from "../modal/channel.js";
 
 
 //CREATE VIDEO
 export const createVideo = async (req, res) => {
   try {
-    const { title, thumbnailUrl, videoUrl, description, category, views, likes, dislikes, } = req.body;
+    const { title, thumbnailUrl, videoUrl, description,category, channel, views, likes, dislikes, } = req.body;
 
     if (!title || !thumbnailUrl || !videoUrl){
       return res.status(400).json({ message: "Required fields missing" });
     }
+
+    const channelData = await Channel.findById(channel);
     console.log("Hello data")
     const video = await Video.create({
       title,
@@ -16,7 +19,8 @@ export const createVideo = async (req, res) => {
       videoUrl,
       description,
       category,
-      channelName: "My Channel",  // later dynamic
+      channelName: channelData.channelName ,  // later dynamic
+      channel,
       views,
       likes,
       dislikes

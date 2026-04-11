@@ -60,7 +60,7 @@ export const addVideoToChannel = async (req, res) => {
       channel: channel._id
     });
 
-    res.json({ message: "Video added to channel" });
+    return res.json({ message: "Video added to channel" });
 
   } catch (error) {
     res.status(500).json({ message: error.message });
