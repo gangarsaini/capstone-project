@@ -1,7 +1,8 @@
 .sideBar{
     position:absolute;
     left:0px;
-    height:10px;
+    height:100%;
+    
 }
 
 .sideBar a{
@@ -14,6 +15,24 @@
     align-items: center;
 }
 
+.sideBar .menu-btn{
+    z-index:999;
+    position: relative;    
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding:6px;
+    height: 60px;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  
+}
+
+.sideBar .menu-btn svg{
+    font-size:20px;
+}
+
 .sideBar a svg{
     font-size:24px;
     color: #0f0f0f;
@@ -22,4 +41,13 @@
 .sideBar a span{
     font-size:10px;
     color: #0f0f0f;
+}
+
+
+/* overlay-css */
+.overlay{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: red;
 }

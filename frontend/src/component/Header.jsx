@@ -5,7 +5,7 @@ import './header.css'
 function Header() {
   return (
     <div className="flex items-center justify-between px-4 py-2 text-white">
-      <h1 className="text-xl font-bold flex items-center justify-center"><span className="text-red-500 px-2"><IoLogoYoutube /></span><h2 className="text-black">YouTube</h2></h1>
+      <h1 className="text-xl font-bold flex items-center justify-center"><span className="text-red-500 px-2"><IoLogoYoutube /></span><span className="text-black">YouTube</span></h1>
         <span className="serach-layout">
         <input
         type="text"
@@ -14,7 +14,9 @@ function Header() {
        />
          <span className="search-ico"><IoSearch /></span>
         </span>
-
+            <Link to="/register" className="bg-green-500 px-3 py-1 rounded ml-2">
+        Register
+        </Link>
       <Link to="/login" className="bg-red-500 px-3 py-1 rounded">
         Sign In
       </Link>

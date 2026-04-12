@@ -1,8 +1,9 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./pages/Home.jsx";
-import Login from "./pages/Login.jsx";
-import Channel from "./pages/Channel.jsx";
-
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Channel from "./pages/Channel";
+import VideoPlayer from "./pages/VideoPlayer";
+ import Register from "./pages/Register";
 function App() {
   return (
     <BrowserRouter>
@@ -10,6 +11,8 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/channel" element={<Channel />} />
+        <Route path="/video/:id" element={<VideoPlayer />} />
+       <Route path="/register" element={<Register />} />
       </Routes>
     </BrowserRouter>
   );
