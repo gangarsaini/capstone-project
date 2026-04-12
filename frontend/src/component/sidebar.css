@@ -1,0 +1,25 @@
+.sideBar{
+    position:absolute;
+    left:0px;
+    height:10px;
+}
+
+.sideBar a{
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    padding:6px;
+    height: 60px;
+    justify-content: center;
+    align-items: center;
+}
+
+.sideBar a svg{
+    font-size:24px;
+    color: #0f0f0f;
+}
+
+.sideBar a span{
+    font-size:10px;
+    color: #0f0f0f;
+}

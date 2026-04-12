@@ -1,0 +1,29 @@
+
+.serach-layout{
+   position: relative;
+}
+.serach-layout svg{
+    font-size: 18px;
+    color: black;
+}
+
+.search-ico{
+  position: absolute;
+    right: 0px;
+    top: 0px;
+    height:100%;
+    background: #f0f0f0;
+    border-radius: 0px 38px 38px 0px;
+    width:80px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    border-left:1px solid #c6c6c6;
+}
+
+ .serach-layout input{
+  min-width: 560px;
+    border: 1px solid #c6c6c6;
+    border-radius: 38px 38px 38px 38px; 
+    outline: none;
+}
