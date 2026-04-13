@@ -1,0 +1,9 @@
+.layout-as-youtube{
+    position: relative;
+    width:100%;
+}
+
+.layout-as-youtube .video-player{
+    width:calc(100% - 420px);
+}
+

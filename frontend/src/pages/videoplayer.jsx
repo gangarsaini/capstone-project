@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import API from "../services/api";
-
+import './videoplyer.css'
 function VideoPlayer() {
   const { id } = useParams();
   const [video, setVideo] = useState(null);
   const [comments, setComments] = useState([]);
   const [text, setText] = useState("");
-  const [openDropdown, setOpenDropdown] = useState(null);
+//   const [openDropdown, setOpenDropdown] = useState(null);
     const [editId, setEditId] = useState(null);
     const [editText, setEditText] = useState("");
-
+    const [videos, setVideos] = useState([]);
 
   // fetch video
   useEffect(() => {
@@ -76,98 +76,96 @@ const handleUpdate = async () => {
   };
 
   return (
-    <div className="p-4">
+    <div className="p-4 layout-as-youtube">
+        <div className="video-player">
+        {/* VIDEO */}
+        <iframe
+            width="100%"
+            height="400"
+            src={getEmbedUrl(video.videoUrl)}
+            title="video"
+            allowFullScreen
+        ></iframe>
+        <h1 className="text-xl font-bold mt-4">{video.title}</h1>
+        {/* COMMENTS */}
+        <div className="mt-6">
+            <h2 className="font-bold">Comments</h2>
 
-      {/* VIDEO */}
-      <iframe
-        width="100%"
-        height="400"
-        src={getEmbedUrl(video.videoUrl)}
-        title="video"
-        allowFullScreen
-      ></iframe>
+            {/* Add comment */}
+            <div className="flex gap-2 mt-2">
+            <input
+                value={text}
+                onChange={(e) => setText(e.target.value)}
+                className="border p-2 flex-1"
+                placeholder="Add comment..."
+            />
+            <button
+                onClick={handleComment}
+                className="bg-blue-400 text-white px-3 rounded-xl cursor-pointer"
+            >
+                Post
+            </button>
+            </div>
 
-      <h1 className="text-xl font-bold mt-4">{video.title}</h1>
+            {/* List */}
+            <div className="mt-4">
+            
 
-      {/* COMMENTS */}
-      <div className="mt-6">
-        <h2 className="font-bold">Comments</h2>
+    
+    {comments.map((c) => (
+    <div key={c._id} className="border-b py-2">
 
-        {/* Add comment */}
-        <div className="flex gap-2 mt-2">
-          <input
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-            className="border p-2 flex-1"
-            placeholder="Add comment..."
-          />
-          <button
-            onClick={handleComment}
-            className="bg-blue-400 text-white px-3 rounded-xl cursor-pointer"
-          >
-            Post
-          </button>
-        </div>
-
-        {/* List */}
-        <div className="mt-4">
-         
-
-  
-{comments.map((c) => (
-  <div key={c._id} className="border-b py-2">
-
-    {editId === c._id ? (
-      <div className="flex gap-2">
-        <input
-          value={editText}
-          onChange={(e) => setEditText(e.target.value)}
-          className="border p-1 flex-1"
-        />
-        <button
-          onClick={handleUpdate}
-          className="bg-green-500 text-white px-2"
-        >
-          Save
-        </button>
-      </div>
-    ) : (
-      <div className="flex justify-between">
-        <div>
-          <p className="font-semibold">{c.user?.username}</p>
-          <p>{c.text}</p>
-        </div>
-
+        {editId === c._id ? (
         <div className="flex gap-2">
-          <button
-            onClick={() => handleEdit(c)}
-            className="text-blue-500"
-          >
-            Edit
-          </button>
-
-          <button
-            onClick={() => handleDelete(c._id)}
-            className="text-red-500"
-          >
-            Delete
-          </button>
+            <input
+            value={editText}
+            onChange={(e) => setEditText(e.target.value)}
+            className="border p-1 flex-1"
+            />
+            <button
+            onClick={handleUpdate}
+            className="bg-green-500 text-white px-2"
+            >
+            Save
+            </button>
         </div>
-      </div>
-    )}
+        ) : (
+        <div className="flex justify-between">
+            <div>
+            <p className="font-semibold">{c.user?.username}</p>
+            <p>{c.text}</p>
+            </div>
 
-  </div>
-))}
+            <div className="flex gap-2">
+            <button
+                onClick={() => handleEdit(c)}
+                className="text-blue-500"
+            >
+                Edit
+            </button>
 
-
-
-
-
+            <button
+                onClick={() => handleDelete(c._id)}
+                className="text-red-500"
+            >
+                Delete
+            </button>
+            </div>
+        </div>
+        )}
 
     </div>
-          
+    ))}
+    </div>
+            
+            </div>
         </div>
-      </div>
+        <div className="static-section">
+            {videos.map((video) => (
+          <VideoCard key={video._id} video={video} />
+           ))} 
+        </div>
+    </div>
     
   );
 }

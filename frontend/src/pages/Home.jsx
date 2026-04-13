@@ -17,14 +17,7 @@ function Home() {
   "Coding",
   "Fitness"
 ];
-//   const fetchVideos = async () => {
-//     try {
-//       const res = await API.get("/videos");
-//       setVideos(res.data);
-//     } catch (err) {
-//       console.log(err);
-//     }
-//   };
+
 
 const fetchVideos = async () => {
   const res = await API.get(
@@ -45,8 +38,13 @@ useEffect(() => {
     <div className="layout">
       <StaticSidebar/>
      <div className="right-portion">
-     <Header search={search}  setSearch={setSearch} setCategory={setCategory}/>
-      <div className="flex gap-2 p-3 overflow-x-auto ">
+     <Header 
+      search={search}  
+     setSearch={setSearch} 
+     setCategory={setCategory}
+     />
+
+      <div className="flex gap-2 p-3 overflow-x-auto scroll-func">
             {categories.map((cat) => (
                 <button
                 key={cat}
