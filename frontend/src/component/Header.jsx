@@ -18,12 +18,7 @@ function Header({setSearch,setCategory}) {
        />
          <span className="search-ico"><IoSearch /></span>
         </span>
-            {/* <Link className="bg-green-500 px-3 py-1 rounded ml-2">
-        Register
-        </Link> */}
-      {/* <Link   to="/register" className="bg-red-500 px-3 py-1 rounded">
-        Sign In
-      </Link> */}
+     
 
               {user ? (
                 <p className="px-3 py-1 rounded flex">
