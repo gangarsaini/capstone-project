@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../services/api";
-
+import { Link } from "react-router-dom";
 function Register() {
   const navigate = useNavigate();
 
@@ -23,7 +23,7 @@ function Register() {
       navigate("/login");
 
     } catch (err) {
-      console.log(err.response.data);
+     
       alert(err.response.data.message);
     }
   };
@@ -35,28 +35,34 @@ function Register() {
       <input
         placeholder="Username"
         onChange={(e) => setUsername(e.target.value)}
-        className="border p-2 m-2 w-64"
+        className="border p-2 m-2 rounded-xl w-[320px] outline-0"
       />
 
       <input
         placeholder="Email"
         onChange={(e) => setEmail(e.target.value)}
-        className="border p-2 m-2 w-64"
+        className="border p-2 m-2  rounded-xl w-[320px] outline-0"
       />
 
       <input
         placeholder="Password"
         type="password"
         onChange={(e) => setPassword(e.target.value)}
-        className="border p-2 m-2 w-64"
+        className="border p-2 m-2 rounded-xl w-[320px] outline-0"
       />
 
       <button
         onClick={handleRegister}
-        className="bg-green-500 text-white px-4 py-2 mt-2"
+        className="bg-green-900 text-white px-4 py-2 mt-2 rounded-xl w-[320px] outline-0"
       >
         Register
       </button>
+        <p className="mt-3">
+            Already have an account?{" "}
+            <Link to="/login" className="text-blue-500">
+                login here
+            </Link>
+</p>
     </div>
   );
 }
