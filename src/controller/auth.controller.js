@@ -39,7 +39,7 @@ export const registerUser = async (req, res) => {
 // LOGIN
 export const loginUser = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { username, email, password } = req.body;
      
     // validation
     if (!email || !password) {
@@ -65,6 +65,7 @@ export const loginUser = async (req, res) => {
     return res.status(200).json({
         user:{
         id: user._id,
+        username: user.username,
         email: user.email,
         password: user.password
       },

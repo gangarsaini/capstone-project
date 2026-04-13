@@ -1,0 +1,35 @@
+Capstone- project
+
+POST
+http://localhost:5000/api/auth/register
+
+{
+      "username":"roni",
+      "email":"roni@gmail.com",
+      "password":"123456"
+}
+
+// POST / login
+
+token : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5ZGFhZmQ5OTE2MjE5ZThhNDA3OTZjMSIsImlhdCI6MTc3NTkzOTY1NywiZXhwIjoxNzc2NTQ0NDU3fQ.-JN7hBspDoh-q9TybuIa081aVY8QEKf0zLLgf4b62EA
+
+
+
+Get, POST
+
+http://localhost:5000/api/videos
+
+POST
+{
+   "title": "Lo-Fi Hip Hop Beats to Study and Relax",
+    "thumbnailUrl": "https://i.ytimg.com/vi/jfKfPfyJRdk/maxresdefault.jpg",
+    "videoUrl": "https://www.youtube.com/watch?v=BfYszZ-ES3M",
+    "description": "Chill beats 24/7 — the perfect background music for studying, coding, reading, or relaxing.",
+    "channelName": "My Channel",
+    "views": 950000000,
+    "likes": 11200000,
+    "dislikes": 120000
+}
+
+
+
