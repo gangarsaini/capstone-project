@@ -50,3 +50,22 @@ export const deleteComment = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+// Update COMMENT
+export const updateComment = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { text } = req.body;
+
+    const updated = await Comment.findByIdAndUpdate(
+      id,
+      { text },
+      { new: true }
+    );
+
+    res.json(updated);
+
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
