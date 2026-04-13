@@ -46,17 +46,12 @@ useEffect(() => {
       <StaticSidebar/>
      <div className="right-portion">
      <Header search={search}  setSearch={setSearch} setCategory={setCategory}/>
-       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4">
-        {videos.map((video) => (
-          <VideoCard key={video._id} video={video} />
-        ))}
-      </div>
-      <div className="flex gap-2 p-3 overflow-x-auto">
+      <div className="flex gap-2 p-3 overflow-x-auto ">
             {categories.map((cat) => (
                 <button
                 key={cat}
                 onClick={() => setCategory(cat)}
-                className={`px-3 py-1 rounded-full ${
+                className={`px-3 py-1 rounded-full cursor-pointer ${
                     category === cat ? "bg-black text-white" : "bg-gray-200"
                 }`}
                 >
@@ -64,6 +59,11 @@ useEffect(() => {
                 </button>
             ))}
         </div>
+       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4">
+        {videos.map((video) => (
+          <VideoCard key={video._id} video={video} />
+        ))}
+      </div>
      </div>
     </div>
   );

@@ -4,7 +4,6 @@ import API from "../services/api";
 
 function VideoPlayer() {
   const { id } = useParams();
-
   const [video, setVideo] = useState(null);
   const [comments, setComments] = useState([]);
   const [text, setText] = useState("");
@@ -84,7 +83,7 @@ function VideoPlayer() {
           />
           <button
             onClick={handleComment}
-            className="bg-blue-500 text-white px-3 rounded-xl"
+            className="bg-blue-400 text-white px-3 rounded-xl cursor-pointer"
           >
             Post
           </button>
@@ -101,8 +100,7 @@ function VideoPlayer() {
 
               <button
                 onClick={() => handleDelete(c._id)}
-                className="text-red-500"
-              >
+                className="text-red-500 cursor-pointer">
                 Delete
               </button>
             </div>

@@ -6,3 +6,8 @@
 .right-portion img{
     height:216px;
 }
+
+aside.sidebar-container {
+    position: fixed;
+    left: 0px;
+}
