@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import API from "../services/api";
-
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 function Channel() {
   const [channel, setChannel] = useState(null);
-
+  const navigate = useNavigate();
   const fetchChannel = async () => {
     try {
       const res = await API.get("/channels/me");
       setChannel(res.data);
+      console.log("res",res)
     } catch (err) {
       setChannel(null);
     }
@@ -37,18 +39,36 @@ function Channel() {
 
       <div className="grid grid-cols-3 gap-4 mt-2">
        {channel.videos?.map((video) => (
-        <div key={video._id} className="border p-2">
-            <img src={video.thumbnailUrl} alt="" />
-            <p>{video.title}</p>
+        <div
+        key={video._id}
+        onClick={() => navigate(`/video/${video._id}`)}
+        className="cursor-pointer hover:scale-105 transition"
+        >
+        <img
+            src={video.thumbnailUrl}
+            alt=""
+            className="w-full h-40 object-cover rounded-lg"
+        />
+
+        <div className="mt-2">
+            <p className="font-semibold">{video.title}</p>
+            <p className="text-gray-500 text-sm">
+            {video.views} views
+            </p>
+        </div>
         </div>
         ))}
       </div>
-      <a
-        href="/upload"
-        className="bg-blue-500 text-white px-4 py-2 inline-block mt-3"
+
+
+
+
+      <Link
+        to="/upload"
+        className="bg-blue-500 text-white px-4 py-2 inline-block mt-3 cursor-pointer"
         >
         Upload Video
-        </a>
+        </Link>
     </div>
   );
 }

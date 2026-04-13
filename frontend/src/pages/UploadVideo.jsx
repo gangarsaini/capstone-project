@@ -12,32 +12,45 @@ function UploadVideo() {
   const navigate = useNavigate();
 
   const handleUpload = async () => {
+  try {
+
+    // Check channel exists
     try {
-      const res = await API.post("/videos", {
-        title,
-        videoUrl,
-        thumbnailUrl,
-        category,
-        description
-      });
-
-      const videoId = res.data._id;
-
-
-      // LINK VIDEO TO CHANNEL
-      await API.post("/channels/add-video", {
-        videoId
-      });
-
-      alert("Video uploaded");
-
-      navigate("/channel");
-
-    } catch (error) {
-      console.log(error);
-      alert("Error uploading video");
+      await API.get("/channels/me");
+    } catch {
+      alert("Please create a channel first");
+      return;
     }
-  };
+
+    //  Validate inputs
+    if (!title || !videoUrl || !thumbnailUrl || !category || !description) {
+      alert("All fields are required");
+      return;
+    }
+
+    // Create video
+    const res = await API.post("/videos", {
+      title,
+      videoUrl,
+      thumbnailUrl,
+      category,
+      description
+    });
+
+    const videoId = res.data._id;
+
+    // Link video to channel
+    await API.post("/channels/add-video", {
+      videoId
+    });
+    alert("Video uploaded");
+    navigate("/channel");
+
+  } catch (error) {
+    console.log(error.response?.data || error.message);
+    alert("Error uploading video");
+  }
+};
 
   return (
     <div className="p-4 flex flex-col items-center">
@@ -51,7 +64,7 @@ function UploadVideo() {
 
       <button
         onClick={handleUpload}
-        className="bg-green-500 text-white px-4 py-2 mt-2"
+        className="bg-green-800 text-white px-4 py-2 mt-2 cursor-pointer rounded-xl"
       >
         Upload
       </button>

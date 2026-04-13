@@ -31,11 +31,9 @@ function Header({setSearch,setCategory}) {
             )}
 
             
-            {user && (
-            <Link to="/channel" className="bg-gray-700 px-3 py-1 rounded ml-2">
+             <Link to="/channel" className="bg-gray-700 px-3 py-1 rounded ml-2">
                 My Channel
             </Link>
-            )}
 
 
     </div>
