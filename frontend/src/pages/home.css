@@ -29,3 +29,17 @@ aside.sidebar-container {
     padding-top:70px;
 }
 
+@media (max-width:560px){
+    .layout{
+      padding-left: 20px;
+    }
+    .right-portion{
+        z-index:-1;
+    }
+    .right-portion .scroll-func {
+    padding-top: 76px;
+}
+   .right-portion .fixed-IT{
+        width:100%;
+    }
+}

@@ -36,13 +36,7 @@ function Channel() {
       <h2 className="mt-4 font-bold">Videos</h2>
 
       <div className="grid grid-cols-3 gap-4 mt-2">
-        {/* {channel.videos?.map((video) => (
-          <div key={video._id}>
-            <img src={video.thumbnailUrl} alt="" />
-            <p>{video.title}</p>
-          </div>
-        ))} */}
-        {channel.videos?.map((video) => (
+       {channel.videos?.map((video) => (
         <div key={video._id} className="border p-2">
             <img src={video.thumbnailUrl} alt="" />
             <p>{video.title}</p>

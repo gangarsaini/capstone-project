@@ -36,3 +36,13 @@
     border-radius: 50%;
     margin-right: 5px;
 }
+
+@media (max-width:560px){
+    .m-none{
+        display: none;
+    }
+ 
+    .serach-layout input{
+        min-width: auto;
+    }
+}

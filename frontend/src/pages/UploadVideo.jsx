@@ -23,7 +23,8 @@ function UploadVideo() {
 
       const videoId = res.data._id;
 
-      // 🔥 LINK VIDEO TO CHANNEL
+
+      // LINK VIDEO TO CHANNEL
       await API.post("/channels/add-video", {
         videoId
       });
