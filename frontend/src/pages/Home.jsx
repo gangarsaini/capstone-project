@@ -9,6 +9,14 @@ function Home() {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("All");
 
+  const categories = [
+  "All",
+  "Education",
+  "Travel",
+  "Music",
+  "Coding",
+  "Fitness"
+];
 //   const fetchVideos = async () => {
 //     try {
 //       const res = await API.get("/videos");
@@ -43,6 +51,19 @@ useEffect(() => {
           <VideoCard key={video._id} video={video} />
         ))}
       </div>
+      <div className="flex gap-2 p-3 overflow-x-auto">
+            {categories.map((cat) => (
+                <button
+                key={cat}
+                onClick={() => setCategory(cat)}
+                className={`px-3 py-1 rounded-full ${
+                    category === cat ? "bg-black text-white" : "bg-gray-200"
+                }`}
+                >
+                {cat}
+                </button>
+            ))}
+        </div>
      </div>
     </div>
   );

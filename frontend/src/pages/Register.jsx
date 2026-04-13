@@ -20,7 +20,7 @@ function Register() {
       alert("Registered successfully");
 
       // 👉 redirect to login
-      navigate("/login");
+      navigate("/");
 
     } catch (err) {
      
