@@ -4,6 +4,7 @@ import Login from "./pages/Login";
 import Channel from "./pages/Channel";
 import VideoPlayer from "./pages/VideoPlayer";
  import Register from "./pages/Register";
+ import 'flowbite';
 function App() {
   return (
     <BrowserRouter>

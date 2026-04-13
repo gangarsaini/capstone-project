@@ -7,7 +7,9 @@ function VideoPlayer() {
   const [video, setVideo] = useState(null);
   const [comments, setComments] = useState([]);
   const [text, setText] = useState("");
-  
+  const [openDropdown, setOpenDropdown] = useState(null);
+    const [editId, setEditId] = useState(null);
+    const [editText, setEditText] = useState("");
 
 
   // fetch video
@@ -47,6 +49,24 @@ function VideoPlayer() {
     await API.delete(`/comments/${commentId}`);
     fetchComments();
   };
+
+ const handleEdit = (comment) => {
+  setEditId(comment._id);
+  setEditText(comment.text);
+};
+
+const handleUpdate = async () => {
+  await API.put(`/comments/${editId}`, {
+    text: editText
+  });
+
+  setEditId(null);
+  setEditText("");
+  fetchComments();
+};
+
+
+
 
   if (!video) return <p>Loading...</p>;
 
@@ -91,23 +111,64 @@ function VideoPlayer() {
 
         {/* List */}
         <div className="mt-4">
-          {comments.map((c) => (
-            <div key={c._id} className="border-b py-2 flex justify-between">
-              <div>
-                <p className="font-semibold">{c.user?.username}</p>
-                <p>{c.text}</p>
-              </div>
+         
 
-              <button
-                onClick={() => handleDelete(c._id)}
-                className="text-red-500 cursor-pointer">
-                Delete
-              </button>
-            </div>
-          ))}
+  
+{comments.map((c) => (
+  <div key={c._id} className="border-b py-2">
+
+    {editId === c._id ? (
+      <div className="flex gap-2">
+        <input
+          value={editText}
+          onChange={(e) => setEditText(e.target.value)}
+          className="border p-1 flex-1"
+        />
+        <button
+          onClick={handleUpdate}
+          className="bg-green-500 text-white px-2"
+        >
+          Save
+        </button>
+      </div>
+    ) : (
+      <div className="flex justify-between">
+        <div>
+          <p className="font-semibold">{c.user?.username}</p>
+          <p>{c.text}</p>
+        </div>
+
+        <div className="flex gap-2">
+          <button
+            onClick={() => handleEdit(c)}
+            className="text-blue-500"
+          >
+            Edit
+          </button>
+
+          <button
+            onClick={() => handleDelete(c._id)}
+            className="text-red-500"
+          >
+            Delete
+          </button>
         </div>
       </div>
+    )}
+
+  </div>
+))}
+
+
+
+
+
+
     </div>
+          
+        </div>
+      </div>
+    
   );
 }
 

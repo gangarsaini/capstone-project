@@ -12,6 +12,7 @@
   "dependencies": {
     "@tailwindcss/vite": "^4.2.2",
     "axios": "^1.15.0",
+    "flowbite": "^4.0.1",
     "icons": "^1.0.0",
     "react": "^19.2.5",
     "react-dom": "^19.2.4",
