@@ -1,9 +1,11 @@
 import { useNavigate } from "react-router-dom";
-
+import { AiOutlineLike } from "react-icons/ai";
+import { AiOutlineDislike } from "react-icons/ai";
 function VideoCard({ video }) {
   const navigate = useNavigate();
 
   return (
+    <>
     <div
       className="cursor-pointer"
       onClick={() => navigate(`/video/${video._id}`)}
@@ -17,11 +19,27 @@ function VideoCard({ video }) {
             className="w-full rounded"
         />
      </div>
-
+{/* 
       <h3 className="font-semibold mt-2">{video.title}</h3>
       <p className="text-sm text-gray-600">{video.channelName}</p>
       <p className="text-sm text-gray-500">{video.views} views</p>
-    </div>
+     <div>      
+    <p className="text-sm text-gray-500">{video.likes} <AiOutlineLike/></p>
+    <p className="text-sm text-gray-500">{video.dislikes} <AiOutlineDislike /></p></div> */}
+    
+            <div className="flex justify-between items-center">
+                <div>
+                    <h3 className="font-semibold mt-2">{video.title}</h3>
+                    <p className="text-sm text-gray-600">{video.channelName}</p>
+                    <p className="text-sm text-gray-500">{video.views} views</p>
+                </div>
+                <div className="flex flex-row">      
+                    <p className="text-sm text-gray-500">{video.likes}<AiOutlineLike/></p>
+                    <p className="text-sm text-gray-500">{video.dislikes} <AiOutlineDislike /></p>
+                </div>
+            </div>
+     </div>
+    </>
   );
 }
 

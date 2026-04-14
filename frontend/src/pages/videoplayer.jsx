@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import API from "../services/api";
 import './videoplyer.css'
+import Header from "../component/Header";
+import { AiOutlineLike } from "react-icons/ai";
+import { AiOutlineDislike } from "react-icons/ai";
 function VideoPlayer() {
   const { id } = useParams();
   const [video, setVideo] = useState(null);
@@ -76,7 +79,9 @@ const handleUpdate = async () => {
   };
 
   return (
-    <div className="p-4 layout-as-youtube">
+    <div className="wrapper-plyer">
+    <div className="fixed-header"><Header/></div>
+    <div className="p-4 layout-as-youtube flex">
         <div className="video-player">
         {/* VIDEO */}
         <iframe
@@ -87,6 +92,16 @@ const handleUpdate = async () => {
             allowFullScreen
         ></iframe>
         <h1 className="text-xl font-bold mt-4">{video.title}</h1>
+        <div className="flex justify-between items-center"> 
+            <div>
+                <p className="text-sm text-gray-600">{video.channelName}</p>
+                <p className="text-sm text-gray-500">{video.views} views</p>
+            </div>
+            <div className="flex flex-row">
+               <p className="text-sm text-gray-500 flex items-center mr-1.5">{video.likes}<AiOutlineLike/></p>
+              <p className="text-sm text-gray-500 flex items-center">{video.dislikes} <AiOutlineDislike /></p>
+            </div>
+        </div>
         {/* COMMENTS */}
         <div className="mt-6">
             <h2 className="font-bold">Comments</h2>
@@ -160,13 +175,42 @@ const handleUpdate = async () => {
             
             </div>
         </div>
-        <div className="static-section">
-            {videos.map((video) => (
-          <VideoCard key={video._id} video={video} />
-           ))} 
+        <div className="static-section ">
+            <div className="wraper_video">
+            <iframe
+             src="https://www.youtube.com/embed/fHBR1j1kJ1I"
+            title="YouTube video"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+         />
+         <iframe 
+          src="https://www.youtube.com/embed/MX48mv73jf8" 
+          title="Top 30 JavaScript Interview Questions 2025 | JavaScript Interview Questions &amp; Answers | Intellipaat" 
+          frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+          referrerpolicy="strict-origin-when-cross-origin" 
+          allowFullScreen>
+        </iframe>
+
+        <iframe
+         src="https://www.youtube.com/embed/njs0Den1b5Y" 
+         title="Javascript Interview Questions" 
+         frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+         referrerpolicy="strict-origin-when-cross-origin" 
+         allowfFllScreen></iframe>
+          
+          <iframe
+             src="https://www.youtube.com/embed/fHBR1j1kJ1I"
+            title="YouTube video"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+         />
+            </div>
+
+        
         </div>
     </div>
-    
+   
+    </div>
   );
 }
 

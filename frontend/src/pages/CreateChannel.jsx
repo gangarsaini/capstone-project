@@ -5,10 +5,19 @@ import { useNavigate } from "react-router-dom";
 function CreateChannel() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-
+ const [err, setError] = useState('')
   const navigate = useNavigate();
 
   const handleCreate = async () => {
+
+     const token = localStorage.getItem("token"); // or wherever you store it
+
+        if (!token) {
+            setError("Please login first to create a channel");
+            return; // stops here, no API call, no 401 in console
+        }
+
+
     try{
        await API.post("/channels", {
           channelName: name,
@@ -18,13 +27,16 @@ function CreateChannel() {
         navigate("/channel");
     }
     catch(err){
-        console.log("what is the error here", err)
+       
+         if(err.response?.status === 401){
+        setError("Please login first to create a channel");
+    } else {
+        setError("Something went wrong. Please try again.");
+    }
     }
   };
 
-
-
-  return (
+   return (
     <div className="p-4 flex flex-col items-center">
       <h2 className="text-xl font-bold">Create Channel</h2>
 
@@ -39,6 +51,7 @@ function CreateChannel() {
         onChange={(e) => setDescription(e.target.value)}
         className="border p-2 m-2 w-80"
       />
+      <p className="text-red-500 text-[14px]">{err}</p>
 
       <button
         onClick={handleCreate}
