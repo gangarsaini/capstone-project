@@ -19,7 +19,6 @@ export const createVideo = async (req, res) => {
       videoUrl,
       description,
       category,
-      channelName: channelData.channelName ,  // later dynamic
       channel,
       views,
       likes,

@@ -8,17 +8,24 @@ function Login() {
   const navigate = useNavigate();
 
 
-//   const handleLogin = async () => {
-//     const res = await API.post("/auth/login", { email, password });
-//     localStorage.setItem("token", res.data.token);
-//     alert("Login successful");
-//   };
 
-//localStorage.setItem("token", res.data.token);
-
-// after login success
-//navigate("/")
 const handleLogin = async () => {
+
+    const isValidEmail = (email) => {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+     };
+
+        if (!isValidEmail(email)) {
+            alert("Enter valid email");
+            return;
+        }
+
+        if (!password){
+            alert("Password required");
+            return;
+        }
+
+
   try {
     const res = await API.post("/auth/login", { email, password });
     console.log(res,"login")

@@ -1,6 +1,6 @@
 import Channel from "../modal/channel.js";
 import Video from "../modal/video.js";
-
+import mongoose from "mongoose";
 
 // CREATE CHANNEL
 export const createChannel = async (req, res) => {
@@ -46,23 +46,43 @@ export const addVideoToChannel = async (req, res) => {
   try {
     const { videoId } = req.body;
 
+    console.log("videoId:", videoId); // ✅ DEBUG
+
+    if  (!mongoose.Types.ObjectId.isValid(videoId)) {
+      return res.status(400).json({ message: "Invalid videoId" });
+    }
+    
+
     const channel = await Channel.findOne({ owner: req.user.id });
+
+    console.log("channel please come:", channel); // ✅ DEBUG
 
     if (!channel) {
       return res.status(404).json({ message: "Channel not found" });
     }
 
-    channel.videos.push(videoId);
-    await channel.save();
+     const alreadyExists = channel.videos.some(
+        (v) => v && v.toString() === videoId
+     );
 
-    // also update video
-    await Video.findByIdAndUpdate(videoId, {
-      channel: channel._id
-    });
+    if (!alreadyExists) {
+      channel.videos.push(videoId);
+      await channel.save();
+      console.log("Video added to channel"); // ✅ DEBUG
+    }
 
-    return res.json({ message: "Video added to channel" });
+    const video = await Video.findById(videoId);
+    if (!video) {
+      return res.status(404).json({ message: "Video not found" });
+    }
+
+    video.channel = channel._id;
+    await video.save();
+
+    res.json({ message: "Video linked successfully" });
 
   } catch (error) {
+    console.log("ADD VIDEO ERROR:", error);
     res.status(500).json({ message: error.message });
   }
 };

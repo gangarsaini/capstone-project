@@ -27,8 +27,7 @@ function CreateChannel() {
         navigate("/channel");
     }
     catch(err){
-       
-         if(err.response?.status === 401){
+        if(err.response?.status === 401){
         setError("Please login first to create a channel");
     } else {
         setError("Something went wrong. Please try again.");

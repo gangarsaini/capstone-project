@@ -23,9 +23,9 @@ function Channel() {
     return (
       <div className="p-4 text-center">
         <h2>No Channel Found</h2>
-        <a href="/create-channel" className="text-blue-500">
+        <Link to="/create-channel" className="text-blue-500">
           Create Channel
-        </a>
+        </Link>
       </div>
     );
   }
