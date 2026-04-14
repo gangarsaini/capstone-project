@@ -6,11 +6,9 @@ import Channel from "../modal/channel.js";
 export const createVideo = async (req, res) => {
   try {
     const { title, thumbnailUrl, videoUrl, description,category, channel, views, likes, dislikes, } = req.body;
-
     if (!title || !thumbnailUrl || !videoUrl){
       return res.status(400).json({ message: "Required fields missing" });
     }
-
     const channelData = await Channel.findById(channel);
     console.log("Hello data")
     const video = await Video.create({
@@ -19,15 +17,16 @@ export const createVideo = async (req, res) => {
       videoUrl,
       description,
       category,
-      channelName: channelData.channelName ,  // later dynamic
       channel,
       views,
       likes,
       dislikes
     });
-     return res.status(201).json({video:video});
+    //  return res.status(201).json({video:video});
+    res.json(video)
   } 
   catch (error) {
+    console.log(error);
     res.status(500).json({ message: error.message });
   }
 };

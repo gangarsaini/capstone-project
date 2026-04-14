@@ -1,13 +1,13 @@
 import Channel from "../modal/channel.js";
 import Video from "../modal/video.js";
-
+import mongoose from "mongoose";
 
 // CREATE CHANNEL
 export const createChannel = async (req, res) => {
   try {
     const { channelName, description } = req.body;
 
-    const existing = await Channel.findOne({ owner: req.user.id });
+    const existing = await Channel.findOne({ owner: req.user.id }).populate("videos");
 
     if (existing) {
       return res.status(400).json({ message: "Channel already exists" });
@@ -19,9 +19,10 @@ export const createChannel = async (req, res) => {
       owner: req.user.id
     });
 
-    return res.status(201).json(channel);
+    res.status(201).json(channel);
 
   } catch (error) {
+    console.log(error);
     res.status(500).json({ message: error.message });
   }
 };
@@ -33,9 +34,14 @@ export const getMyChannel = async (req, res) => {
     const channel = await Channel.findOne({ owner: req.user.id })
       .populate("videos");
 
+    if (!channel) {
+      return res.status(404).json({ message: "No channel found" });
+    }
+
     res.json(channel);
 
   } catch (error) {
+    console.log(error);
     res.status(500).json({ message: error.message });
   }
 };
@@ -46,23 +52,38 @@ export const addVideoToChannel = async (req, res) => {
   try {
     const { videoId } = req.body;
 
+    if (!mongoose.Types.ObjectId.isValid(videoId)) {
+      return res.status(400).json({ message: "Invalid videoId" });
+    }
+
     const channel = await Channel.findOne({ owner: req.user.id });
 
     if (!channel) {
       return res.status(404).json({ message: "Channel not found" });
     }
 
-    channel.videos.push(videoId);
-    await channel.save();
+    const video = await Video.findById(videoId);
 
-    // also update video
-    await Video.findByIdAndUpdate(videoId, {
-      channel: channel._id
-    });
+    if (!video) {
+      return res.status(404).json({ message: "Video not found" });
+    }
 
-    return res.json({ message: "Video added to channel" });
+    if (!channel.videos.includes(videoId)) {
+      channel.videos.push(videoId);
+      await channel.save();
+    }
+
+    video.channel = channel._id;
+
+        // 🔥 ADD THIS LINE
+        video.channelName = channel.channelName;
+
+        await video.save();
+
+    res.json({ message: "Video added to channel" });
 
   } catch (error) {
+    console.log(error.response.data, "errorr"); //  VERY IMPORTANT
     res.status(500).json({ message: error.message });
   }
 };
