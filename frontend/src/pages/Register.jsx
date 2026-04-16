@@ -2,12 +2,18 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../services/api";
 import { Link } from "react-router-dom";
+import './global.css';
 function Register() {
   const navigate = useNavigate();
 
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const[error,setError] = useState('')
+
+  const isValidEmail = (email) => {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  };
 
   const handleRegister = async () => {
     try {
@@ -17,14 +23,30 @@ function Register() {
         password
       });
 
-      alert("Registered successfully");
+       if(!isValidEmail(email) === "" && password.length === ""){
+         setError("Please Enter the email and password first");
+        return;
+       }
+
+        if (!isValidEmail(email)){
+        setError("Invalid email format");
+        return;
+        }
+
+        if (password.length < 6){
+        setError("Password must be at least 6 characters");
+        return;
+        }
+
+      setError("Registered successfully");
+
+
 
       // 👉 redirect to login
       navigate("/login");
 
     } catch (err) {
-     
-      alert(err.response.data.message);
+       setError(err.response.data.message);
     }
   };
 
@@ -39,6 +61,7 @@ function Register() {
       />
 
       <input
+        type="email"
         placeholder="Email"
         onChange={(e) => setEmail(e.target.value)}
         className="border p-2 m-2  rounded-xl w-[320px] outline-0"
@@ -51,12 +74,15 @@ function Register() {
         className="border p-2 m-2 rounded-xl w-[320px] outline-0"
       />
 
+      <div className="relative">
       <button
         onClick={handleRegister}
-        className="bg-green-900 text-white px-4 py-2 mt-2 rounded-xl w-[320px] outline-0"
+        className="bg-green-900 text-white px-4 py-2 mt-2 rounded-xl w-[320px] outline-0 cursor-pointer"
       >
         Register
       </button>
+      <p className="text-red-500 text-[14px] custum-change">{error}</p>
+      </div>
         <p className="mt-3">
             Already have an account?{" "}
             <Link to="/login" className="text-blue-500">

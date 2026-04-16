@@ -2,6 +2,11 @@ import User from "../modal/user.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
+  
+const isValidEmail = (email) => {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+};
+
 // REGISTER
 export const registerUser = async (req, res) => {
   try {
@@ -11,6 +16,18 @@ export const registerUser = async (req, res) => {
     if (!username || !email || !password) {
       return res.status(400).json({ message: "All fields are required" });
     }
+
+     
+
+    //  Email format validation
+    if (!isValidEmail(email)) {
+      return res.status(400).json({ message: "Invalid email format" });
+    }
+
+    if (password.length < 6) {
+      return res.status(400).json({ message: "Password must be at least 6 characters" });
+    }
+    
 
     // check if user exists
     const existingUser = await User.findOne({ email });
@@ -45,6 +62,10 @@ export const loginUser = async (req, res) => {
     if (!email || !password) {
       return res.status(400).json({ message: "All fields required" });
     }
+
+    if (!isValidEmail(email)) {
+     return res.status(400).json({ message: "Invalid email format" });
+    }
    
     // check user
     const user = await User.findOne({ email });
@@ -66,9 +87,8 @@ export const loginUser = async (req, res) => {
         user:{
         id: user._id,
         username: user.username,
-        email: user.email,
-        password: user.password
-      },
+        email: user.email
+        },
       accessToken: token
       
     })

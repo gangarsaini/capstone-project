@@ -3,12 +3,12 @@ import { IoLogoYoutube } from "react-icons/io5";
 import { IoSearch } from "react-icons/io5";
 import './header.css';
 import { FaUser } from "react-icons/fa";
-function Header({setSearch,setCategory}) {
+function Header({setSearch}) {
      const user = JSON.parse(localStorage.getItem("user"));
     //  console.log(user,"user");
   return (
     <div className="flex items-center justify-between px-4 py-2 text-white fixed-IT ">
-      <h1 className="text-xl font-bold flex items-center justify-center"><span className="text-red-500 px-2"><IoLogoYoutube /></span><span className="text-black">YouTube</span></h1>
+      <h1 className="text-xl font-bold flex items-center justify-center"><span className="text-red-500 px-2"><IoLogoYoutube /></span><span className="text-black m-none">YouTube</span></h1>
         <span className="serach-layout">
         <input
         type="text"
@@ -31,11 +31,9 @@ function Header({setSearch,setCategory}) {
             )}
 
             
-            {user && (
-            <Link to="/channel" className="bg-gray-700 px-3 py-1 rounded ml-2">
+             <Link to="/channel" className="bg-gray-700 px-3 py-1 rounded ml-2">
                 My Channel
             </Link>
-            )}
 
 
     </div>

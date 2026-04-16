@@ -52,38 +52,43 @@ export const addVideoToChannel = async (req, res) => {
   try {
     const { videoId } = req.body;
 
-    if (!mongoose.Types.ObjectId.isValid(videoId)) {
+    console.log("videoId:", videoId); // ✅ DEBUG
+
+    if  (!mongoose.Types.ObjectId.isValid(videoId)) {
       return res.status(400).json({ message: "Invalid videoId" });
     }
+    
 
     const channel = await Channel.findOne({ owner: req.user.id });
+
+    console.log("channel please come:", channel); // ✅ DEBUG
 
     if (!channel) {
       return res.status(404).json({ message: "Channel not found" });
     }
 
-    const video = await Video.findById(videoId);
+     const alreadyExists = channel.videos.some(
+        (v) => v && v.toString() === videoId
+     );
 
+    if (!alreadyExists) {
+      channel.videos.push(videoId);
+      await channel.save();
+      console.log("Video added to channel"); // ✅ DEBUG
+    }
+
+    const video = await Video.findById(videoId);
     if (!video) {
       return res.status(404).json({ message: "Video not found" });
     }
 
-    if (!channel.videos.includes(videoId)) {
-      channel.videos.push(videoId);
-      await channel.save();
-    }
-
     video.channel = channel._id;
+    await video.save();
 
-        // 🔥 ADD THIS LINE
-        video.channelName = channel.channelName;
-
-        await video.save();
-
-    res.json({ message: "Video added to channel" });
+    res.json({ message: "Video linked successfully" });
 
   } catch (error) {
-    console.log(error.response.data, "errorr"); //  VERY IMPORTANT
+    console.log("ADD VIDEO ERROR:", error);
     res.status(500).json({ message: error.message });
   }
 };

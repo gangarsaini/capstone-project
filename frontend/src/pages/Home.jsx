@@ -8,7 +8,7 @@ function Home() {
   const [videos, setVideos] = useState([]);
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("All");
-
+  const token = localStorage.getItem("token");
   const categories = [
   "All",
   "Education",
@@ -20,6 +20,7 @@ function Home() {
 
 
 const fetchVideos = async () => {
+    if (!token) return;
   const res = await API.get(
     `/videos?search=${search}&category=${category}`
   );
@@ -27,6 +28,7 @@ const fetchVideos = async () => {
 };
 
 useEffect(() => {
+    if (!token) return;
   fetchVideos();
 }, [search, category]);
 
@@ -57,11 +59,22 @@ useEffect(() => {
                 </button>
             ))}
         </div>
-       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4">
+        {token 
+        ? 
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4">
         {videos.map((video) => (
           <VideoCard key={video._id} video={video} />
         ))}
-      </div>
+       </div>
+         :
+        <div className="grid grid-cols-1 gap-4 p-4">
+        <h2 className="text-2xl font-bold justify-center grid">Welcome to YouTube Clone</h2>
+        <p className="mt-2 text-gray-500 justify-center grid">
+          Please login to watch videos
+        </p>
+        </div>
+         }
+   
      </div>
     </div>
   );

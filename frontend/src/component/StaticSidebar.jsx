@@ -9,25 +9,7 @@ import './sidebar.css';
 import OpenSide from './OpenSide'
 
 
-// function StaticSidebar() {
-//     const[open,setOpen] = useState(false);
 
-//     function handleClick(){
-//         setOpen(!open);
-//     }
-//   return (
-//     <>
-//     <div className={`open ? "flex": "hidden"`}><OpenSide/></div>
-//     <div className='sideBar'>
-//       <Link onClick={handleClick} className='outline-none'><RxHamburgerMenu /></Link>
-//        <Link><IoMdHome /><span>Home</span></Link>
-//       <Link><SiYoutubeshorts /><span>Shorts</span></Link>
-//       <Link><MdSubscriptions /><span>Subscriptions</span></Link>
-//       <Link><IoHappyOutline /><span>You</span></Link>
-//     </div>
-//     </>
-//   )
-// }
 
 function StaticSidebar() {
     const [open, setOpen] = useState(false);
