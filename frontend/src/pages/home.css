@@ -12,6 +12,7 @@ aside.sidebar-container {
     left: 0px;
     width: 60px;
     height: 100%;
+    z-index: 99;
 }
 
 .right-portion{
