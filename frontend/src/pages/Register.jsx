@@ -15,40 +15,40 @@ function Register() {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   };
 
-  const handleRegister = async () => {
-    try {
-      await API.post("/auth/register", {
-        username,
-        email,
-        password
-      });
+ const handleRegister = async () => {
+  // Validate first
+  if (!username || !email || !password) {
+    setError("Please fill all fields");
+    return;
+  }
 
-       if(!isValidEmail(email) === "" && password.length === ""){
-         setError("Please Enter the email and password first");
-        return;
-       }
+  if (!isValidEmail(email)) {
+    setError("Invalid email format");
+    return;
+  }
 
-        if (!isValidEmail(email)){
-        setError("Invalid email format");
-        return;
-        }
+  if (password.length < 6) {
+    setError("Password must be at least 6 characters");
+    return;
+  }
 
-        if (password.length < 6){
-        setError("Password must be at least 6 characters");
-        return;
-        }
+  try {
+    // Call API only after validation
+    await API.post("/auth/register", {
+      username,
+      email,
+      password
+    });
 
-      setError("Registered successfully");
+    setError(""); // clear error
 
+    // Step 3: Navigate only after success
+    navigate("/login");
 
-
-      // 👉 redirect to login
-      navigate("/login");
-
-    } catch (err) {
-       setError(err.response.data.message);
-    }
-  };
+  } catch (err) {
+    setError(err.response?.data?.message || "Something went wrong");
+  }
+};
 
   return (
     <div className="flex flex-col items-center mt-10">
@@ -83,7 +83,7 @@ function Register() {
       </button>
       <p className="text-red-500 text-[14px] custum-change">{error}</p>
       </div>
-        <p className="mt-3">
+        <p className="mt-6">
             Already have an account?{" "}
             <Link to="/login" className="text-blue-500">
                 login here

@@ -22,8 +22,8 @@ export const createVideo = async (req, res) => {
       likes,
       dislikes
     });
-    //  return res.status(201).json({video:video});
-    res.json(video)
+     
+     return res.status(201).json(video);
   } 
   catch (error) {
     console.log(error);

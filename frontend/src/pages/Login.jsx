@@ -9,35 +9,31 @@ function Login() {
   const[error,setError]   = useState('')
   const navigate = useNavigate();
 
-
-
-const handleLogin = async () => {
-
-    const isValidEmail = (email) => {
+  const isValidEmail = (email) => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
      };
 
-        if (!isValidEmail(email)) {
-            setError("Enter valid email");
-            return;
-        }
+    const handleLogin = async () => {
+  if (!email || !password){
+    setError("Please Enter Email and Password");
+    return;
+  }
 
-        if (!password){
-            setError("Password required");
-            return;
-        }
-
-
-  try {
+  if(!isValidEmail(email)){
+    setError("Enter valid email");
+    return;
+  }
+  try{
     const res = await API.post("/auth/login", { email, password });
-    console.log(res,"login")
+
     localStorage.setItem("token", res.data.accessToken);
     localStorage.setItem("user", JSON.stringify(res.data.user));
-    navigate("/")
-    window.location.reload();
-  } catch (err) {
-    console.log(err.response.data); // VERY IMPORTANT
-    }
+
+    navigate("/");
+  } 
+  catch (err) {
+      setError(err.response?.data?.message || "Invalid email or password"); 
+  }
 };
 
   return (
@@ -58,9 +54,11 @@ const handleLogin = async () => {
       <button onClick={handleLogin} className="bg-blue-500 text-white px-4 py-2 rounded-xl w-[320px] outline-0 cursor-pointer">
         Login
       </button>
-      <p className="text-red-500 text-[14px] custum-change">{error}</p>
+        {error && (
+        <p className="text-red-500 text-[14px] custum-change text-center ">{error}</p>
+        )}
       </div>
-                <p className="mt-3">
+                <p className="mt-6">
             Don't have an account?{" "}
             <Link to="/register" className="text-blue-500">
                 Register

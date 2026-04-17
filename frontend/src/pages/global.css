@@ -1,3 +1,22 @@
-.custum-change{
-    
+.custum-change {
+    position: absolute;
+    left: 0px;
+    right: 0;
+    bottom: -26px;
+    text-align: center;
+}
+
+.channel-user-layout{
+    padding:40px;
+   
+    margin:16px;
+}
+
+.channel-user-layout svg{
+color:oklch(0.81 0.1 250.46);
+}
+
+
+.channel-user-layout svg{
+    font-size:60px;
 }

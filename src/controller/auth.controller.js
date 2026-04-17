@@ -56,7 +56,7 @@ export const registerUser = async (req, res) => {
 // LOGIN
 export const loginUser = async (req, res) => {
   try {
-    const { username, email, password } = req.body;
+    const { email, password } = req.body;
      
     // validation
     if (!email || !password) {
@@ -92,16 +92,8 @@ export const loginUser = async (req, res) => {
       accessToken: token
       
     })
-
-    // res.json({
-    //   token,
-    
-    // });
-
-  } catch (error) {
+   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
-//token
-// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5ZDhmOTJkODA2MjA2YmIwM2EyZTBhNSIsImlhdCI6MTc3NTgzMjUyNiwiZXhwIjoxNzc2NDM3MzI2fQ.fgkALNBFrMsFSbXYaVwuaBE19l5t-Z6T-vCIXvlEKAw

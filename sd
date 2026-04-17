@@ -33,3 +33,64 @@ POST
 
 
 
+{
+      "username":"moni",
+      "email":"moni@gmail.com",
+      "password":"12345678"
+}
+
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5ZGMxZGYwODBmNWU0ZTRmNmFmZjNkMyIsImlhdCI6MTc3NjAzMzQ1OCwiZXhwIjoxNzc2NjM4MjU4fQ.zVBirtbijGUaysRVFB2vKzoYFvk2n6hCfvQ-Unvqqvw
+
+
+{
+    "data": {
+        "user": {
+            "id": "69dc1df080f5e4e4f6aff3d3",
+            "username": "moni",
+            "email": "moni@gmail.com",
+            "password": "$2b$10$URXX/YPWJoYRAFC2CT2DsOwP4niXH0n9E5oGB8e53tIqsEHp/fziu"
+        },
+        "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5ZGMxZGYwODBmNWU0ZTRmNmFmZjNkMyIsImlhdCI6MTc3NjAzOTYxNiwiZXhwIjoxNzc2NjQ0NDE2fQ.4iyYMDE9a4F9LNYkM5YHCQ-0_uxn9iJCzbPpUX8Hegg"
+    },
+    "status": 200,
+    "statusText": "OK",
+    "headers": {
+        "content-length": "347",
+        "content-type": "application/json; charset=utf-8"
+    },
+    "config": {
+        "transitional": {
+            "silentJSONParsing": true,
+            "forcedJSONParsing": true,
+            "clarifyTimeoutError": false,
+            "legacyInterceptorReqResOrdering": true
+        },
+        "adapter": [
+            "xhr",
+            "http",
+            "fetch"
+        ],
+        "transformRequest": [
+            null
+        ],
+        "transformResponse": [
+            null
+        ],
+        "timeout": 0,
+        "xsrfCookieName": "XSRF-TOKEN",
+        "xsrfHeaderName": "X-XSRF-TOKEN",
+        "maxContentLength": -1,
+        "maxBodyLength": -1,
+        "env": {},
+        "headers": {
+            "Accept": "application/json, text/plain, */*",
+            "Content-Type": "application/json"
+        },
+        "baseURL": "http://localhost:5000/api",
+        "method": "post",
+        "url": "/auth/login",
+        "data": "{\"email\":\"moni@gmail.com\",\"password\":\"12345678\"}",
+        "allowAbsoluteUrls": true
+    },
+    "request": {}
+}

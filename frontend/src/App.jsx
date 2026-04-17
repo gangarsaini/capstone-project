@@ -7,7 +7,7 @@ import Register from "./pages/Register";
 import CreateChannel from "./pages/CreateChannel";
 import UploadVideo from "./pages/UploadVideo";
 import './App.css';
- import 'flowbite';
+import 'flowbite';
 function App() {
   return (
     <BrowserRouter>
@@ -16,11 +16,9 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/channel" element={<Channel />} />
         <Route path="/video/:id" element={<VideoPlayer />} />
-       <Route path="/register" element={<Register />} />
-       <Route path="/channel" element={<Channel />} />
-       <Route path="/create-channel" element={<CreateChannel />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/create-channel" element={<CreateChannel />} />
         <Route path="/upload" element={<UploadVideo />} />
-        <Route path="/video/:id" element={<VideoPlayer />} />
       </Routes>
     </BrowserRouter>
   );

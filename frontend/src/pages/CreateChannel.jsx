@@ -42,13 +42,13 @@ function CreateChannel() {
       <input
         placeholder="Channel Name"
         onChange={(e) => setName(e.target.value)}
-        className="border p-2 m-2 w-80"
+        className="border p-2 m-2 w-80 rounded-xl"
       />
 
       <input
         placeholder="Description"
         onChange={(e) => setDescription(e.target.value)}
-        className="border p-2 m-2 w-80"
+        className="border p-2 m-2 w-80 rounded-xl"
       />
       <p className="text-red-500 text-[14px]">{err}</p>
 

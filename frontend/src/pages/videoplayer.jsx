@@ -20,7 +20,7 @@ function VideoPlayer() {
     API.get("/videos")
       .then((res) => {
         const found = res.data.find((v) => v._id === id);
-        console.log("res",res)
+       // console.log("res",res)
         setVideo(found);
       });
   }, [id]);
@@ -28,7 +28,7 @@ function VideoPlayer() {
   // fetch comments
   const fetchComments = async () => {
     const res = await API.get(`/comments/${id}`);
-    console.log(res,"videplayer")
+    //console.log(res,"videplayer")
     setComments(res.data);
   };
 
@@ -73,10 +73,29 @@ const handleUpdate = async () => {
 
   if (!video) return <p>Loading...</p>;
 
+  // const getEmbedUrl = (url) => {
+  //   const videoId = url.split("v=")[1];
+  //   return `https://www.youtube.com/embed/${videoId}`;
+  // };
+
   const getEmbedUrl = (url) => {
-    const videoId = url.split("v=")[1];
-    return `https://www.youtube.com/embed/${videoId}`;
-  };
+  try {
+    const cleanUrl = url.trim();
+
+    if (cleanUrl.includes("shorts")) {
+      return `https://www.youtube.com/embed/${cleanUrl.split("shorts/")[1]}`;
+    }
+
+    if (cleanUrl.includes("watch?v=")) {
+      return `https://www.youtube.com/embed/${cleanUrl.split("v=")[1]}`;
+    }
+
+    return cleanUrl;
+  } catch (err) {
+    console.error("Invalid video URL", err);
+    return "";
+  }
+};
 
   return (
     <div className="wrapper-plyer">
@@ -87,7 +106,7 @@ const handleUpdate = async () => {
         <iframe
             width="100%"
             height="400"
-            src={getEmbedUrl(video.videoUrl)}
+            src={getEmbedUrl(video.videoUrl.trim())}
             title="video"
             allowFullScreen
         ></iframe>
