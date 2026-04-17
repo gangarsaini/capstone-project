@@ -28,7 +28,7 @@ function Channel() {
 
   return (
     <div>
-        <Header/>
+        <Header  />
     {channel ?
        (<div className="p-4 channel-user-layout">
         

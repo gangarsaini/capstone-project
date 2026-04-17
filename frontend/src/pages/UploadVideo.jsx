@@ -3,7 +3,7 @@ import API from "../services/api";
 import { useNavigate } from "react-router-dom";
 import Header from "../component/Header";
 
-function UploadVideo() {
+function UploadVideo({setSearch}) {
   const [title, setTitle] = useState("");
   const [videoUrl, setVideoUrl] = useState("");
   const [thumbnailUrl, setThumbnailUrl] = useState("");
@@ -62,7 +62,7 @@ function UploadVideo() {
 
   return (
    <div>
-      <Header/>
+      <Header  />
      <div className="p-4 flex flex-col items-center">
       <h2 className="text-xl font-bold mb-2 mp-2">Upload Video</h2>
      <input name="title" placeholder="Title" onChange={(e) => setTitle(e.target.value)} className="border p-2 m-2 w-80 rounded-xl" />

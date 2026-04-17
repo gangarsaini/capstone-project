@@ -173,14 +173,15 @@ const handleUpdate = async () => {
             <div className="flex gap-2">
             <button
                 onClick={() => handleEdit(c)}
-                className="text-blue-500"
+                className="text-blue-500 cursor-pointer"
             >
                 Edit
             </button>
 
             <button
                 onClick={() => handleDelete(c._id)}
-                className="text-red-500"
+                className="text-red-500 cursor-pointer"
+                
             >
                 Delete
             </button>
