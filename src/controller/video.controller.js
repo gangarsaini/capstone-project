@@ -156,19 +156,19 @@ export const dislikeVideo = async (req, res) => {
   }
 };
 
+
+
 export const addView = async (req, res) => {
   try {
-    const video = await Video.findById(req.params.id);
+    const video = await Video.findByIdAndUpdate(
+      req.params.id,
+      { $inc: { views: 1 } },
+      { new: true } // 🔥 VERY IMPORTANT
+    );
 
-    if (!video) {
-      return res.status(404).json({ message: "Video not found" });
-    }
+    
 
-    video.views += 1;
-    await video.save();
-
-    res.json({ views: video.views });
-
+    res.json(video);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

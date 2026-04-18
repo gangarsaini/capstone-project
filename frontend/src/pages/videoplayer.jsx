@@ -80,6 +80,22 @@ const handleUpdate = async () => {
 };
 
 
+useEffect(() => {
+  const viewedVideos = JSON.parse(localStorage.getItem("viewed")) || [];
+
+  if (!viewedVideos.includes(id)) {
+    API.put(`/videos/${id}/view`)
+      .then((res) => {
+        setVideo(res.data);          
+        setLocalVideo(res.data);     
+      });
+
+    viewedVideos.push(id);
+    localStorage.setItem("viewed", JSON.stringify(viewedVideos));
+  }
+}, [id]);
+
+
 
 
   if (!video) return <p>Loading...</p>;
@@ -244,7 +260,7 @@ const handleUpdate = async () => {
          title="Javascript Interview Questions" 
          frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
          referrerpolicy="strict-origin-when-cross-origin" 
-         allowFllScreen></iframe>
+         allowFullScreen></iframe>
           
           <iframe
              src="https://www.youtube.com/embed/fHBR1j1kJ1I"

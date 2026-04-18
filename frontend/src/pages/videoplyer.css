@@ -46,4 +46,7 @@
       margin-left:0px;
       padding-top:20;
     }
+    iframe{
+        height:auto;
+    }
 }

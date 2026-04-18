@@ -4,6 +4,7 @@ import { AiOutlineDislike } from "react-icons/ai";
 import { useState } from "react";
 import API from "../services/api";
 function VideoCard({ video }) {
+    console.log(video, "check here")
   const navigate = useNavigate();
    const [localVideo, setLocalVideo] = useState(video);
   const handleLike = async () => {
