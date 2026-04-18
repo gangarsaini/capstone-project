@@ -5,6 +5,7 @@ import './videoplyer.css'
 import Header from "../component/Header";
 import { AiOutlineLike } from "react-icons/ai";
 import { AiOutlineDislike } from "react-icons/ai";
+
 function VideoPlayer() {
   const { id } = useParams();
   const [video, setVideo] = useState(null);
@@ -14,6 +15,17 @@ function VideoPlayer() {
     const [editId, setEditId] = useState(null);
     const [editText, setEditText] = useState("");
     const [videos, setVideos] = useState([]);
+
+  const [localVideo, setLocalVideo] = useState(video);
+  const handleLike = async () => {
+  const res = await API.post(`/videos/${video._id}/like`);
+   setLocalVideo(res.data);
+};
+
+const handleDislike = async () => {
+  const res = await API.post(`/videos/${video._id}/dislike`);
+ setLocalVideo(res.data);
+};
 
   // fetch video
   useEffect(() => {
@@ -62,7 +74,6 @@ const handleUpdate = async () => {
   await API.put(`/comments/${editId}`, {
     text: editText
   });
-
   setEditId(null);
   setEditText("");
   fetchComments();
@@ -117,8 +128,25 @@ const handleUpdate = async () => {
                 <p className="text-sm text-gray-500">{video.views} views</p>
             </div>
             <div className="flex flex-row">
-               <p className="text-sm text-gray-500 flex items-center mr-1.5">{video.likes}<AiOutlineLike/></p>
-              <p className="text-sm text-gray-500 flex items-center">{video.dislikes} <AiOutlineDislike /></p>
+               {/* <p className="text-sm text-gray-500 flex items-center mr-1.5">{video.likes}<AiOutlineLike/></p>
+              <p className="text-sm text-gray-500 flex items-center">{video.dislikes} <AiOutlineDislike /></p> */}
+              <button
+            onClick={(e) => {
+                e.stopPropagation();
+                handleLike();
+            }}
+            >
+            👍 {localVideo?.likes?.length || 0}
+            </button>
+
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                handleDislike();
+              }}
+            >
+              👎 {localVideo?.dislikes?.length || 0}
+            </button>
             </div>
         </div>
         {/* COMMENTS */}

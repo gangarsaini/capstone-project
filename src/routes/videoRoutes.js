@@ -1,5 +1,5 @@
 import express from "express";
-import {createVideo, getAllVideos} from "../controller/video.controller.js";
+import {createVideo, getAllVideos, deleteVideo,likeVideo,dislikeVideo} from "../controller/video.controller.js";
 import authMiddleware from "../middleware/authmiddleware.js";
 
 const router = express.Router();
@@ -7,5 +7,9 @@ const router = express.Router();
 router.post("/", authMiddleware, createVideo);
 // fetch videos (public)
 router.get("/", getAllVideos);
+
+router.delete("/:id", authMiddleware, deleteVideo);
+router.post("/:id/like", authMiddleware, likeVideo);
+router.post("/:id/dislike", authMiddleware, dislikeVideo);
 
 export default router;

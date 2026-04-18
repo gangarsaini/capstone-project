@@ -23,14 +23,14 @@ const videoSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Channel"
   },
-  likes: {
-    type: Number,
-    default:0
-  },
-  dislikes: {
-    type: Number,
-    default:0
-  },
+likes: {
+  type: Array,
+  default: []
+},
+dislikes: {
+  type: Array,
+  default: []
+},
   category: {
     type: String,
     default: "All"

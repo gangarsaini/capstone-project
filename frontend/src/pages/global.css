@@ -20,3 +20,21 @@ color:oklch(0.81 0.1 250.46);
 .channel-user-layout svg{
     font-size:60px;
 }
+
+@media(max-width:620px){
+    .channel-user-layout{
+        padding:0px;
+    }
+    .channel-user-layout .grid{
+       display:block;
+    }
+    .serach-layout{
+        display: none;
+    }
+    .logout {
+        display: none;
+    }
+    .fix-ma{
+        margin-bottom:22px;
+    }
+}

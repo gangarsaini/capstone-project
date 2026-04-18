@@ -31,3 +31,19 @@
    height:100%;
    margin-bottom:20px;
 }
+
+@media(max-width:620px){
+
+    .layout-as-youtube.flex{
+        flex-direction: column;
+
+    }
+    .layout-as-youtube .video-player{
+        width:100%;
+    }
+    .layout-as-youtube .wraper_video{
+      width:100%;
+      margin-left:0px;
+      padding-top:20;
+    }
+}

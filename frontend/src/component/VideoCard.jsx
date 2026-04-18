@@ -1,8 +1,20 @@
 import { useNavigate } from "react-router-dom";
 import { AiOutlineLike } from "react-icons/ai";
 import { AiOutlineDislike } from "react-icons/ai";
+import { useState } from "react";
+import API from "../services/api";
 function VideoCard({ video }) {
   const navigate = useNavigate();
+   const [localVideo, setLocalVideo] = useState(video);
+  const handleLike = async () => {
+  const res = await API.post(`/videos/${video._id}/like`);
+   setLocalVideo(res.data);
+};
+
+const handleDislike = async () => {
+  const res = await API.post(`/videos/${video._id}/dislike`);
+ setLocalVideo(res.data);
+};
 
   return (
     <>
@@ -28,8 +40,25 @@ function VideoCard({ video }) {
                     <p className="text-sm text-gray-500">{video.views} views</p>
                 </div>
                 <div className="flex flex-row">      
-                    <p className="text-sm text-gray-500">{video.likes}<AiOutlineLike/></p>
-                    <p className="text-sm text-gray-500">{video.dislikes} <AiOutlineDislike /></p>
+                    {/* <p className="text-sm text-gray-500">{video.likes}<AiOutlineLike/></p>
+                    <p className="text-sm text-gray-500">{video.dislikes} <AiOutlineDislike /></p> */}
+                   <button
+            onClick={(e) => {
+                e.stopPropagation();
+                handleLike();
+            }}
+            >
+            👍 {localVideo.likes?.length || 0}
+            </button>
+
+<button
+  onClick={(e) => {
+    e.stopPropagation();
+    handleDislike();
+  }}
+>
+  👎 {localVideo.dislikes?.length || 0}
+</button>
                 </div>
             </div>
      </div>

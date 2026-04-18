@@ -20,6 +20,20 @@ function Channel() {
     }
   };
 
+  const handleDelete = async (id) => {
+  try {
+    await API.delete(`/videos/${id}`);
+    setError("Video deleted");
+     
+    // refresh channel
+    fetchChannel();
+
+  } catch (err) {
+    console.log(err);
+    setError("Error deleting video");
+  }
+};
+
   useEffect(() => {
     fetchChannel();
   }, []);
@@ -41,13 +55,14 @@ function Channel() {
           </div>
         </div>
        <h2 className="mt-4 font-bold">Videos</h2>
-      <div className="grid grid-cols-3 gap-4 mt-2">
+       <p  className="text-red-500 text-[14px] custum-change text-center">{error}</p>
+      <div className="grid grid-cols-3 gap-4  fix-ma">
      
        {channel.videos?.map((video) => (
         <div
         key={video._id}
         onClick={() => navigate(`/video/${video._id}`)}
-        className="cursor-pointer hover:scale-105 transition"
+        className="cursor-pointer hover:scale-105 mt-2 transition"
         >
         <img
             src={video.thumbnailUrl}
@@ -61,6 +76,15 @@ function Channel() {
             {video.views} views
             </p>
         </div>
+                <button
+          onClick={(e) => {
+            e.stopPropagation();
+            handleDelete(video._id);
+          }}
+          className="text-red-500 text-sm cursor-pointer"
+        >
+          Delete
+        </button>
         </div>
         ))}
       </div>
