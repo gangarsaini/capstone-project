@@ -1,5 +1,5 @@
 import express from "express";
-import {createVideo, getAllVideos, deleteVideo,likeVideo,dislikeVideo,addView} from "../controller/video.controller.js";
+import {createVideo, getAllVideos, deleteVideo,likeVideo,dislikeVideo,addView,getVideoById} from "../controller/video.controller.js";
 import authMiddleware from "../middleware/authmiddleware.js";
 
 const router = express.Router();
@@ -12,6 +12,8 @@ router.delete("/:id", authMiddleware, deleteVideo);
 router.post("/:id/like", authMiddleware, likeVideo);
 router.post("/:id/dislike", authMiddleware, dislikeVideo);
 router.put("/:id/view", addView);
+router.get("/:id", getVideoById);
+
 
 
 

@@ -101,32 +101,30 @@ export const deleteVideo = async (req, res) => {
 
 
 export const likeVideo = async (req, res) => {
-  try {
-    const video = await Video.findById(req.params.id);
+  const userId = req.user.id;
+  const video = await Video.findById(req.params.id);
 
-    const userId = req.user.id;
+  if (!video) return res.status(404).json({ message: "Video not found" });
 
-    // remove from dislikes
-    video.dislikes = video.dislikes.filter(
+  // remove dislike
+  video.dislikes = video.dislikes.filter(
+    (id) => id.toString() !== userId
+  );
+
+  // toggle like
+  if (video.likes.includes(userId)) {
+    video.likes = video.likes.filter(
       (id) => id.toString() !== userId
     );
-
-    // toggle like
-    if (video.likes.includes(userId)) {
-      video.likes = video.likes.filter(
-        (id) => id.toString() !== userId
-      );
-    } else {
-      video.likes.push(userId);
-    }
-
-    await video.save();
-
-    res.json(video);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
+  } else {
+    video.likes.push(userId);
   }
+
+  await video.save(); // 🔥 IMPORTANT
+
+  res.json(video);
 };
+
 
 export const dislikeVideo = async (req, res) => {
   try {
@@ -163,10 +161,26 @@ export const addView = async (req, res) => {
     const video = await Video.findByIdAndUpdate(
       req.params.id,
       { $inc: { views: 1 } },
-      { new: true } // 🔥 VERY IMPORTANT
+      { new: true } // 🔥 MUST
     );
+ console.log('hello views')
+    if (!video) {
+      return res.status(404).json({ message: "Video not found" });
+    }
+ console.log('hello view')
+    res.json(video);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
 
-    
+export const getVideoById = async (req, res) => {
+  try {
+    const video = await Video.findById(req.params.id);
+
+    if (!video) {
+      return res.status(404).json({ message: "Video not found" });
+    }
 
     res.json(video);
   } catch (error) {

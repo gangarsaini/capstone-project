@@ -69,4 +69,7 @@ youtube-clone/
 │ └── App.jsx
 
 
-GitHub: https://github.com/your-username
+GitHub: https://github.com/gangarsaini/capstone-project/tree/frontend
+
+final-project\youtube-clone-backend\src\ - backend path
+final-project\youtube-clone-backend\frontend\ - frontend path

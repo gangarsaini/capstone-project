@@ -5,7 +5,7 @@ import './videoplyer.css'
 import Header from "../component/Header";
 import { AiOutlineLike } from "react-icons/ai";
 import { AiOutlineDislike } from "react-icons/ai";
-
+import { useRef } from "react";
 function VideoPlayer() {
   const { id } = useParams();
   const [video, setVideo] = useState(null);
@@ -27,15 +27,7 @@ const handleDislike = async () => {
  setLocalVideo(res.data);
 };
 
-  // fetch video
-  useEffect(() => {
-    API.get("/videos")
-      .then((res) => {
-        const found = res.data.find((v) => v._id === id);
-       // console.log("res",res)
-        setVideo(found);
-      });
-  }, [id]);
+const hasViewed = useRef(false);
 
   // fetch comments
   const fetchComments = async () => {
@@ -79,21 +71,42 @@ const handleUpdate = async () => {
   fetchComments();
 };
 
+useEffect(() => {
+  if (video) {
+    setLocalVideo(video);
+  }
+}, [video]);
+
 
 useEffect(() => {
-  const viewedVideos = JSON.parse(localStorage.getItem("viewed")) || [];
+  const loadVideo = async () => {
+    try {
+      const viewed = JSON.parse(localStorage.getItem("viewed")) || [];
 
-  if (!viewedVideos.includes(id)) {
-    API.put(`/videos/${id}/view`)
-      .then((res) => {
-        setVideo(res.data);          
-        setLocalVideo(res.data);     
-      });
+      if (!viewed.includes(id) && !hasViewed.current) {
+        hasViewed.current = true; // 🚀 prevent double call
 
-    viewedVideos.push(id);
-    localStorage.setItem("viewed", JSON.stringify(viewedVideos));
-  }
+        const res = await API.put(`/videos/${id}/view`);
+        setVideo(res.data);
+        setLocalVideo(res.data);
+
+        viewed.push(id);
+        localStorage.setItem("viewed", JSON.stringify(viewed));
+      } else {
+        const res = await API.get(`/videos/${id}`);
+        setVideo(res.data);
+        setLocalVideo(res.data);
+      }
+
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  loadVideo();
 }, [id]);
+
+
 
 
 
@@ -141,12 +154,13 @@ useEffect(() => {
         <div className="flex justify-between items-center"> 
             <div>
                 <p className="text-sm text-gray-600">{video.channelName}</p>
-                <p className="text-sm text-gray-500">{video.views} views</p>
+                <p className="text-sm text-gray-500">{localVideo?.views || 0} views</p>
             </div>
             <div className="flex flex-row">
                {/* <p className="text-sm text-gray-500 flex items-center mr-1.5">{video.likes}<AiOutlineLike/></p>
               <p className="text-sm text-gray-500 flex items-center">{video.dislikes} <AiOutlineDislike /></p> */}
               <button
+              className="cursor-pointer"
             onClick={(e) => {
                 e.stopPropagation();
                 handleLike();
@@ -156,6 +170,7 @@ useEffect(() => {
             </button>
 
             <button
+              className="cursor-pointer"
               onClick={(e) => {
                 e.stopPropagation();
                 handleDislike();
@@ -214,7 +229,7 @@ useEffect(() => {
             <p>{c.text}</p>
             </div>
 
-            <div className="flex gap-2">
+            <div className="flex gap-2 z-10">
             <button
                 onClick={() => handleEdit(c)}
                 className="text-blue-500 cursor-pointer"
