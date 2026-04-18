@@ -73,3 +73,6 @@ GitHub: https://github.com/gangarsaini/capstone-project/tree/frontend
 
 final-project\youtube-clone-backend\src\ - backend path
 final-project\youtube-clone-backend\frontend\ - frontend path
+
+
+All code on main branch ....for frontend and backend both
